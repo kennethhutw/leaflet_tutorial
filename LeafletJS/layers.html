@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Base layer and Overlay -Leaflet</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+  integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+  crossorigin=""></script>
+  <style>
+      html,body,#map{
+        width:600px;
+        height:500px;
+      }
+  </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+             var osm="OpenStreetMap",
+             thunLink="ThunderForest";
+
+             var osmUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+             var landUrl="https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png";
+
+             var osmMap = L.tileLayer(osmUrl,{attribution:osm});
+             var landMap = L.tileLayer(landUrl,{attribution:thunLink});
+
+             var mymap = L.map('map',{
+                 layers:[osmMap]
+             }).setView([35.990835,-78.900055],5);
+
+             var baseLayers = {
+                 "General View":osmMap,
+                 "Lanscape View":landMap
+             };
+
+            var GroupPlaces = new L.LayerGroup();
+            L.marker([35.990835,-78.900055]).addTo(GroupPlaces);
+            L.marker([35.690835,-78.900055]).addTo(GroupPlaces);
+            L.marker([35.690835,-78.800055]).addTo(GroupPlaces);
+            L.marker([35.490835,-78.900055]).addTo(GroupPlaces);
+
+             var overlays = {
+                 "Places visited":GroupPlaces
+             };
+
+             L.control.layers(baseLayers, overlays).addTo(mymap);
+        </script>
+    </body>
+    
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <title>shape-leafLet</title>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+  integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+  crossorigin=""></script>
+ 
+  <style>
+      html,body,#map{
+          width:800px;
+          height:600px;
+      }
+  </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+                var mymap = L.map('map').setView([51.505,-0.09],12);
+
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mymap);
+
+                L.marker([51.505,-0.09]).addTo(mymap);
+                L.marker([51.525,-0.09]).addTo(mymap);
+
+                L.circle([51.485,-0.0911],500,{
+                    color:'red',
+                    fillColor:'blue',
+                    fillOpacity:0.5
+                }).addTo(mymap);
+
+                L.polyline([
+                    [51.505,-0.09],
+                    [51.525,-0.09]
+                ]).addTo(mymap);
+
+                L.polygon([
+                    [51.535,-0.09],
+                    [51.515,-0.10],
+                    [51.520,-0.0945]
+                ]).addTo(mymap);
+
+                var bounds = [
+                    [51.735,-0.1011],
+                    [51.715,-0.1023]];
+
+                    L.rectangle(bounds,{color:"#ff7700",weight:1}).addTo(mymap);
+                  //  mymap.fitBounds(bounds);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <title>geoJson -leafLet</title>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+  integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+  crossorigin=""></script>
+ 
+  <style>
+      html,body,#map{
+          width:600px;
+          height:600px;
+          margin-top:20px;
+          margin-left:120px;
+      }
+  </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script>
+                var mymap = L.map('map').setView([25.0527904410819,121.46312713623045],12);
+
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mymap);
+
+                var _geoJsonData = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.46312713623045,
+            25.0527904410819
+          ],
+          [
+            121.54243469238281,
+            25.064297724743746
+          ],
+          [
+            121.52578353881835,
+            25.050302237684523
+          ],
+          [
+            121.48544311523436,
+            25.037549402677048
+          ],
+          [
+            121.46209716796875,
+            25.038015993183574
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54346466064452,
+              25.020284306407692
+            ],
+            [
+              121.5695571899414,
+              25.020284306407692
+            ],
+            [
+              121.5695571899414,
+              25.04890260107914
+            ],
+            [
+              121.54346466064452,
+              25.04890260107914
+            ],
+            [
+              121.54346466064452,
+              25.020284306407692
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.48544311523436,
+          25.023395313968287
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.50123596191405,
+          25.01826210921317
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.5098190307617,
+          25.032416789969336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.51514053344725,
+              25.013906494432717
+            ],
+            [
+              121.50672912597658,
+              25.002083332688198
+            ],
+            [
+              121.52029037475586,
+              24.996482490468967
+            ],
+            [
+              121.53230667114256,
+              25.001149876714134
+            ],
+            [
+              121.53127670288086,
+              25.011728629102276
+            ],
+            [
+              121.51514053344725,
+              25.013906494432717
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
+          
+                var greenIcon = L.icon({
+                    iconUrl:"img/leaf-green.png",
+                    iconSize:[64,74],
+                    icconAnchor:[32,74]
+                });
+                var popup = L.popup();
+                L.geoJSON(_geoJsonData,{
+                    style: function(feature){
+                        return {
+                            color:"#000"
+                        }
+                    },
+                    pointToLayer: function(geoJsonPoint, latlng){
+                        return L.marker(latlng,{
+                            icon:greenIcon
+                        })
+                    },
+                    onEachFeature:function (feature, layer) {
+                            if(feature.geometry.type="Point"){
+                               // layer.bindPopup('hello');
+                               layer.bindPopup(feature.geometry.coordinates.join(","));
+                            }
+                    }
+                }).addTo(mymap);
+        </script>
+    </body>
+</html>
