@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<title>台北市藥局地圖</title>
+
+<head>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+        crossorigin="anonymous"></script>
+    <link href="css/index.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="towns">
+                    <label for="towns">區:</label>
+                    <select id="towns" onchange="townSelect()">
+                        <option value="" selected>請選擇一區</option>
+                        <option value="大同區">大同區</option>
+                        <option value="中山區">中山區</option>
+                        <option value="松山區">松山區</option>
+                        <option value="大安區">大安區</option>
+                        <option value="中正區">中正區</option>
+                        <option value="萬華區">萬華區</option>
+                        <option value="信義區">信義區</option>
+                        <option value="士林區">士林區</option>
+                        <option value="北投區">北投區</option>
+                        <option value="內湖區">內湖區</option>
+                        <option value="南港區">南港區</option>
+                        <option value="文山區">文山區</option>
+                    </select>
+                </div>
+                <div class="ListBlock">
+                    <div class="ListBlockscroll"></div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <div id="pharmacyTemplate" style="display: none;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">藥局名稱</h3>
+            </div>
+            <div class="panel-body">
+                <strong>電話</strong>: <span class="phone">3</span><br />
+                <strong>地址</strong>: <span class="address">Warren, MI</span>
+                <hr>
+                <button class="btn btn-secondary btn-sm btn-location" type="button" data-id="0">Location</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        var mymap = L.map('map', { zoomControl: true }).setView([25.068807, 121.545525], 12);
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mymap);
+
+        function onEachFeature(feature, layer) {
+            /*
+            * Replace me...
+            */
+        }
+
+        function pointToLayer(feature, latlng) {
+            /*
+            * Replace me...
+            */
+        }
+
+
+        myData.addTo(mymap);
+
+        function townSelect() {
+            /*
+            * Replace me...
+            */
+        }
+
+        function displayDetails(features, condition) {
+            $(".ListBlockscroll").html("");
+            var ListRow = $('.ListBlockscroll');
+            var pharmacyTemplate = $('#pharmacyTemplate');
+            for (i = 0; i < features.length; i++) {
+                if (condition == "") {
+                    pharmacyTemplate.find('.panel-title').text(features[i].properties.name);
+                    pharmacyTemplate.find('.phone').text(features[i].properties.phone);
+                    pharmacyTemplate.find('.address').text(features[i].properties.address);
+                    pharmacyTemplate.find('.btn-location').attr('data-lat', features[i].geometry.coordinates[0]);
+                    pharmacyTemplate.find('.btn-location').attr('data-lng', features[i].geometry.coordinates[1]);
+                    ListRow.append(pharmacyTemplate.html());
+                } else if (features[i].properties.town == condition) {
+                    pharmacyTemplate.find('.panel-title').text(features[i].properties.name);
+                    pharmacyTemplate.find('.phone').text(features[i].properties.phone);
+                    pharmacyTemplate.find('.address').text(features[i].properties.address);
+                    pharmacyTemplate.find('.btn-location').attr('data-lat', features[i].geometry.coordinates[0]);
+                    pharmacyTemplate.find('.btn-location').attr('data-lng', features[i].geometry.coordinates[1]);
+                    ListRow.append(pharmacyTemplate.html());
+                }
+            }
+        }
+
+        $(document).on('click', '.btn-location', function () {
+            /*
+            * Replace me...
+            */
+        });
+    </script>
+</body>
+
+</html>
